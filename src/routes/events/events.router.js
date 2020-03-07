@@ -4,7 +4,8 @@ const { check } = require('express-validator');
 const {
   listEvents,
   postNewEvent,
-  updateEvent
+  updateEvent,
+  deleteEvent
 } = require('./events.controller');
 const { validateBody } = require('../../middleware/validate-body');
 
@@ -48,6 +49,8 @@ router.put(
   validateBody,
   updateEvent
 );
+
+router.delete('/:id', deleteEvent);
 
 module.exports = {
   eventsRouter: router

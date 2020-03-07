@@ -1,0 +1,43 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "version": "1.0.0",
+    "title": "Community Hub API",
+    "description": "Bridge Project"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000",
+      "description": "local server"
+    }
+  ],
+  "tags": [
+    {
+      "name": "CRUD Operations"
+    }
+  ],
+  "paths": {
+    "/events": {
+      "get": {
+        "tags": ["CRUD Operations"],
+        "description": "Get all events.",
+        "operationId": "getEvents",
+        "responses": {
+          "200": {
+            "description": "Events were obtained"
+          }
+        }
+      },
+      "post": {
+        "tags": ["CRUD Operations"],
+        "description": "Post a new event.",
+        "operationId": "postEvent",
+        "responses": {
+          "201": {
+            "description": "New event was created."
+          }
+        }
+      }
+    }
+  }
+}

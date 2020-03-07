@@ -1,6 +1,8 @@
 const express = require('express');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
+const swaggerUi = require('swagger-ui-express');
+const openApiDocumentation = require('./swagger.json');
 const router = require('./api');
 const { logger } = require('./utils/logger');
 const { errorHandler } = require('./middleware/error-handler');
@@ -15,6 +17,7 @@ logger.info('🤖 Initializing middleware');
 
 app.use(bodyParser.json());
 app.use(morgan('tiny', { stream: logger.stream }));
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(openApiDocumentation));
 app.use('/', router);
 app.use(errorHandler);
 
