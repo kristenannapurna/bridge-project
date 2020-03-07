@@ -1,10 +1,5 @@
 [
-  {
-    "id": 0,
-    "name": "Murphy - Wyman",
-    "description": "A group that cares about Cheese",
-    "location": "Andersonport, Qatar"
-  },
+  { "id": 0, "name": "Kristen", "description": "me", "location": "Toronto" },
   {
     "id": 1,
     "name": "Kemmer, Osinski and O'Keefe",
@@ -600,9 +595,10 @@
     "location": "Heathtown, Libyan Arab Jamahiriya"
   },
   {
-    "id": 101,
+    "id": 100,
     "name": "Bridge",
     "description": "learn to code",
     "location": "pager duty"
-  }
+  },
+  { "id": 102, "description": "learn to code", "location": "pager duty" }
 ]
