@@ -22,6 +22,12 @@ const postNewEvent = async (req, res) => {
 
 const updateEvent = async (req, res) => {
   const id = req.params.id;
+  const events = eventsData;
+  const index = events.findIndex(event => event.id == id);
+
+  if (index === -1) {
+    return res.status(404).json({ errors: 'event id not found' });
+  }
   const updatedEventsData = eventsData.map(event => {
     if (event.id == id) {
       return {
