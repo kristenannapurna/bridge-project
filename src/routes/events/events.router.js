@@ -1,17 +1,12 @@
 const express = require('express');
 const { check } = require('express-validator');
 
-const {
-  listEvents,
-  postNewEvent,
-  updateEvent,
-  deleteEvent
-} = require('./events.controller');
+const events = require('./events.controller');
 const { validateBody } = require('../../middleware/validate-body');
 
 const router = express.Router();
 
-router.get('', listEvents);
+router.get('', events.get);
 
 router.post(
   '',
@@ -27,7 +22,7 @@ router.post(
       .isEmpty()
   ],
   validateBody,
-  postNewEvent
+  events.post
 );
 
 router.put(
@@ -47,10 +42,10 @@ router.put(
       .isEmpty()
   ],
   validateBody,
-  updateEvent
+  events.update
 );
 
-router.delete('/:id', deleteEvent);
+router.delete('/:id', events.remove);
 
 module.exports = {
   eventsRouter: router

@@ -3,12 +3,12 @@ const { promisify } = require('util');
 const writeFile = promisify(fs.writeFile);
 const eventsData = require('../../../db/events.data.json');
 
-const listEvents = (req, res) => {
+const get = (req, res) => {
   res.status(200);
   return res.json({ data: eventsData });
 };
 
-const postNewEvent = async (req, res) => {
+const post = async (req, res) => {
   const id = eventsData.length + 1;
   const newEventsData = [...eventsData, { id, ...req.body }];
   await writeFile('db/events.data.json', JSON.stringify(newEventsData));
@@ -20,7 +20,7 @@ const postNewEvent = async (req, res) => {
   });
 };
 
-const updateEvent = async (req, res) => {
+const update = async (req, res) => {
   const id = req.params.id;
   const events = eventsData;
   const index = events.findIndex(event => event.id == id);
@@ -45,7 +45,7 @@ const updateEvent = async (req, res) => {
   });
 };
 
-const deleteEvent = async (req, res) => {
+const remove = async (req, res) => {
   const id = req.params.id;
   const updatedEventsData = eventsData;
   const index = updatedEventsData.findIndex(event => event.id == id);
@@ -56,15 +56,15 @@ const deleteEvent = async (req, res) => {
 
   updatedEventsData.splice(index, 1);
   await writeFile('db/events.data.json', JSON.stringify(updatedEventsData));
-  res.status(200);
+  res.status(204);
   return res.json({
     deleted: id
   });
 };
 
 module.exports = {
-  listEvents,
-  postNewEvent,
-  updateEvent,
-  deleteEvent
+  get,
+  post,
+  remove,
+  update
 };
