@@ -8,7 +8,7 @@ const ERROR_CODES = {
 const errorHandler = (err, req, res, next) => {
   const error = JSON.parse(err.message);
   logger.error(error.status);
-  if (!error.status) error.status = ERROR_CODES.INTERNAL_SERVER_ERROR;
+  error.status = error.status || ERROR_CODES.INTERNAL_SERVER_ERROR;
   res.status(ERROR_CODES[error.status]).json(error.message);
 };
 
