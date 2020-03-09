@@ -9,7 +9,7 @@ const get = (req, res) => {
 };
 
 const post = async (req, res) => {
-  const id = eventsData.length + 1;
+  const id = new Date().getUTCMilliseconds().toString();
   const newEventsData = [...eventsData, { id, ...req.body }];
   await writeFile('db/events.data.json', JSON.stringify(newEventsData));
   res.status(201);
