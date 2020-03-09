@@ -1,0 +1,236 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "version": "1.0.0",
+    "title": "Community Hub API",
+    "description": "Bridge Project"
+  },
+
+  "servers": [
+    {
+      "url": "http://localhost:3000",
+      "description": "local server"
+    }
+  ],
+  "tags": [
+    {
+      "name": "CRUD Operations"
+    }
+  ],
+
+  "paths": {
+    "/events": {
+      "get": {
+        "tags": ["CRUD Operations"],
+        "description": "Get all events.",
+        "operationId": "getEvents",
+        "responses": {
+          "200": {
+            "description": "Events were obtained",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Event"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["CRUD Operations"],
+        "description": "Post a new event.",
+        "operationId": "postEvent",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Event"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "New event was created.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Event"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Invalid paramaters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Event"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "/events:id": {
+      "put": {
+        "tags": ["CRUD Operations"],
+        "description": "Update an event",
+        "operationId": "updateEvent",
+        "paramaters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "properties": {
+                "id": {
+                  "type": "string"
+                }
+              }
+            },
+            "required": "true"
+          },
+          {
+            "name": "event",
+            "in": "body",
+            "description": "Data for event",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Event was updated.",
+            "content": {
+              "application/json": {
+                "properties": {
+                  "schema": {
+                    "id": "string"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Event Id Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "schema": {
+                      "$ref": "#/components/schemas/Error"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["CRUD Operations"],
+        "description": "Delete an event",
+        "operationId": "deleteEvent",
+        "paramaters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "properties": {
+                "id": {
+                  "type": "string"
+                }
+              }
+            },
+            "required": "true"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Event was deleted.",
+            "content": {
+              "application/json": {
+                "properties": {
+                  "schema": {
+                    "id": "string"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Event Id Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "schema": {
+                      "$ref": "#/components/schemas/Error"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+
+  "components": {
+    "schemas": {
+      "Event": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "111"
+          },
+          "name": {
+            "type": "string",
+            "example": "Absinthe Party at the Fly Honey Warehouse"
+          },
+          "location": {
+            "type": "string",
+            "example": "Toronto, ON"
+          },
+          "description": {
+            "type": "string",
+            "example": "BYOB"
+          }
+        }
+      },
+      "Events": {
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Event"
+            }
+          }
+        }
+      },
+      "Error": {
+        "properties": {
+          "msg": {
+            "type": "string"
+          },
+          "param": {
+            "type": "string"
+          },
+          "location": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
